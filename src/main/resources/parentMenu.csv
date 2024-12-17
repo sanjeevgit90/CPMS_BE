@@ -1,0 +1,19 @@
+Asset_Settings,,,f,1,,,,Asset Settings,assetsetting
+RegisterEmployee,,,f,1,,,,Register Employee,/registerEmployee
+SearchEmployee,,,f,1,,,,Search Employee,/searchEmployee
+Help_Desk,,,f,1,,,,Help Desk,#
+TeamMembers,,,f,1,,,,My Team Members,/teamMembers
+edituser,,,f,1,,,,Edit User,edituser
+SelectDrop,,,f,1,,,,Select Drop,SelectDrop
+Reports,,,f,1,,,,Reports,reports
+UniqueSiteID_Settings,,,f,1,,,,Unique Site ID Settings,#
+User_Management,,,f,1,,,,User Management,user
+Vendor_Settings,,,f,1,,,,Vendor Settings,vendor
+Dashboard,,,f,1,,,,Dashboard,Dashboard
+Vehicle_Management,,,f,1,,,,Vehicle Management,#
+MOB_HelpDesk,,,f,1,,,,HelpDesk,HelpDesk
+MOB_PO_Management,,,f,1,,,,PO Management,PO Management
+MOB_Report,,,f,1,,,,Report,Report
+PO_Management,,,f,1,,,,PO Managements,#
+MOB_Profile,,,f,1,,,,Profile,Profile
+Project_Management,,,f,1,,,,Project Master,Project_Master

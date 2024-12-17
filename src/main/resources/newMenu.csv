@@ -1,0 +1,90 @@
+menuname,createdby,createddate,isdeleted,organizationid,updatedby,updateddate,description,displayname,urlpath,parentmenu
+AssetConstantMaster,,,f,1,,,,Asset Constant Master,AssetConstantMaster,Asset_Settings
+FamilyMembers,,,f,1,,,,My Family Members,/FamilyMaster,User_Management
+Rate _Contract,,,f,1,,,,Rate Contract,searchRateContract,PO_Management
+Sales_Order_Booking,,,f,1,,,,Sales Order Booking,searchOrderBook,Asset_Settings
+Ticket_Category,,,f,1,,,,Ticket Category,searchTicketCategory,Help_Desk
+UniqueSiteID_Master,,,f,1,,,,Unique Site ID Master,searchLocation,UniqueSiteID_Settings
+Vehicle_Master,,,f,1,,,,Vehicle Master,searchVehicle,Vehicle_Management
+Vehicle_Service,,,f,1,,,,Vehicle Service,searchService,Vehicle_Management
+Role_Master,,,f,1,,,,Role Master,userRoleRights,User_Management
+Ticket_Master,,,f,1,,,,Ticket Master,searchTicket,Help_Desk
+City_Wise_Asset,,,f,1,,,,City Wise Asset,cityWiseAssetReport,Reports
+PO_Report,,,f,1,,,,PO Report,searchPoreport,Reports
+PO_Status_Report,,,f,1,,,,PO Status Report,searchPoreport,Reports
+Purchase_Order,,,f,1,,,,Purchase Order,searchPurchaseOrder,PO_Management
+Support_Team,,,f,1,,,,Support Team,searchDriver,Vehicle_Management
+Manufacturer_Master,,,f,1,,,,Manufacturer Master,Manufacturer,Asset_Settings
+Category_Master,,,f,1,,,,Category,CategoryMaster,Asset_Settings
+City_Installation_Report,,,f,1,,,,City Installation,searchCityInstallationReport,Reports
+City_Master,,,f,1,,,,City Master,searchCity,UniqueSiteID_Settings
+Delivery_Challan,,,f,1,,,,Delivery Challan,searchDC,Asset_Settings
+Department_Master,,,f,1,,,,Department Master,searchDept,Asset_Settings
+Geography_Master,,,f,1,,,,Geography Master,searchGeography,UniqueSiteID_Settings
+GRN_Master,,,f,1,,,,GRN Master,grnMasterSearch,PO_Management
+GRN_Report,,,f,1,,,,GRN Report,searchGrnreport,Reports
+HSN_Master,,,f,1,,,,HSN Master,searchHsn,Asset_Settings
+Licence_Master,,,f,1,,,,Licence Master,searchLicense,Asset_Settings
+Manage_User,,,f,1,,,,Manage User,searchUsers,User_Management
+Assets_Report,,,f,1,,,,Assets Report,AssetsReport,Reports
+Constant_Master,,,f,1,,,,Constant Master,searchConstant,PO_Management
+Create_User,,,t,1,,,,Create User,addUser,PO_Management
+Model_Master,,,f,1,,,,Model Master,ModelMaster,Asset_Settings
+Party_Master,,,f,1,,,,Party Master,searchParty,Vendor_Settings
+Pending_Tickets,,,f,1,,,,Pending Tickets,searchTicketAction,Help_Desk
+PO_Amend_Task,,,f,1,,,,PO Amend Task,searchAmendmentTask,PO_Management
+Police_Station_Master,,,f,1,,,,Police Station,searchPoliceStation,UniqueSiteID_Settings
+Product_Master,,,f,1,,,,Product Master,searchProduct,Asset_Settings
+PO_Summary_Report,,,f,1,,,,PO Summary Report,poReport,Reports
+PO_Periodic,,,f,1,,,,PO Periodic,poProjectANdVendorWiseReport,Reports
+Fulfilment_Delay,,,f,1,,,,Fulfilment Delay,searchFulfilmentDelay,PO_Management
+Ticket_SLA_Report,,,f,1,,,,Ticket SLA Report,TicketSLAReport,Reports
+Ticket _Aging_Report,,,f,1,,,,Ticket Aging Report,AgingReport,Reports
+Supplier_Wise_PO,,,f,1,,,,Supplier Wise PO,searchSupplierreport,Reports
+Revenue_Task,,,f,1,,,,Revenue Task,searchRevenueTask,Asset_Settings
+Rate_Contract_Task,,,f,1,,,,Rate Contract Task,searchRcTask,PO_Management
+Revenue_Master,,,f,1,,,,Revenue Master,searchrevenue,Asset_Settings
+VI_Payment_Task,,,f,1,,,,VI Payment Task,searchVendorInvoiceTask,PO_Management
+PO_Wise_Product,,,f,1,,,,PO Wise Product,searchPoWiseProductReport,Reports
+Ticket_MIS_Report,,,f,1,,,,Ticket MIS Report,AllTicketReport,Reports
+Ticket_Classifications,,,f,1,,,,Ticket Classifications,searchClassification,Help_Desk
+Ticket_Department,,,f,1,,,,Ticket Department,searchDepartment,Help_Desk
+Ticket_Problem_Reported,,,f,1,,,,Ticket Problem Reported,searchProblemReport,Help_Desk
+Ticket_Incident_Report,,,f,1,,,,Ticket Incident Report,TicketIncidentReport,Reports
+PO_Payment_Fulfilment,,,f,1,,,,PO Payment Fulfilment,PoFulFilMentReport,Reports
+Ticket_Escalation_Report,,,f,1,,,,Ticket Escalation Report,TicketEscalationReport,Reports
+MOB_RateContract,,,f,1,,,,Rate Contract,Rate Contract,MOB_PO_Management
+MOB_PRS_Master,,,f,1,,,,PRS Master,PRS Master,MOB_PO_Management
+MOB_PRS_Approval,,,f,1,,,,PRS Approval Task,PRS Approval Task,MOB_PO_Management
+MOB_POStatusReport,,,f,1,,,,PO Status Report,PO Status Report,MOB_Report
+MOB_POSummaryReport,,,f,1,,,,PO Summary Report ,PO Summary Report ,MOB_Report
+MOB_POPeriodic,,,f,1,,,,PO Periodic,PO Periodic,MOB_Report
+MOB_Supplier_wise,,,f,1,,,,Supplier wise PO,Supplier wise PO,MOB_Report
+MOB_Ticket_MIS,,,f,1,,,,Ticket MIS Report,Ticket MIS Report,MOB_Report
+MOB_Ticket_Aging,,,f,1,,,,Ticket Aging  Report,Ticket Aging  Report,MOB_Report
+MOB_Pending_Payment,,,f,1,,,,Pending Payment,Pending Payment,MOB_Report
+MOB_Monthly_Payment,,,f,1,,,,Monthly Payment ,Monthly Payment ,MOB_Report
+MOB_Asset_Report,,,f,1,,,,Asset Report ,Asset Report ,MOB_Report
+MOB_City_Wise,,,f,1,,,,City Wise Asset ,City Wise Asset ,MOB_Report
+MOB_pendingTicket,,,f,1,,,,pending Ticket ,pending Ticket ,MOB_HelpDesk
+MOB_Ticketmaster,,,f,1,,,,Ticket master,Ticket master,MOB_HelpDesk
+MOB_PurchaseOrder,,,f,1,,,,Purchase Order,Purchase Order,MOB_PO_Management
+MOB_POTask,,,t,1,,,,PO Approval Task,PO Approval Task,MOB_PO_Management
+Asset_Master,,,f,1,,,,Asset Management,searchAsset,Asset_Settings
+GRN_Task,,,f,1,,,,GRN Task,grnTaskSearch,PO_Management
+Inter_District_DC,,,f,1,,,,Inter District DC,searchInterDC,Asset_Settings
+Menu_Master,,,f,1,,,,Menu Master,searchMenu,User_Management
+Currency_Master,,,f,1,,,,Currency Master,searchCurrency,PO_Management
+Monthly_Payment,,,f,1,,,,Monthly Payment,poMonthlyPaymentReport,Reports
+OEM_Delivery_Challan,,,f,1,,,,OEM Delivery Challan,searchOEMDC,Asset_Settings
+Orphan_Trips_Report,,,f,1,,,,Orphan Trips Report,OrphanTicket,Reports
+Organization_Master,,,f,1,,,,Organization Master,/Organization,User_Management
+Pending_Payment,,,f,1,,,,Pending Payment,poPendingPaymentReport,Reports
+PO_Approval_Tasks,,,f,1,,,,PO Approval Tasks,searchTask,PO_Management
+PRS_Master,,,f,1,,,,PRS Master,searchPrs,PO_Management
+PRS_Approval_Task,,,f,1,,,,PRS Approval Task,searchPrsTask,PO_Management
+PRS_Report,,,f,1,,,,PRS Report,searchPrsReport,Reports
+USID_Installation_Report,,,f,1,,,,USID Installation,searchUSIDInstallationReport,Reports
+Project_Master,,,f,1,,,,Project Master,Project_Master,Project_Management
+Asset_MIS_Report,,,f,1,,,,Asset MIS Report,AssetReport,Reports
+Project_Approval_Task,,,f,1,,,,Project Approval Task,searchProjectTask,Project_Management
