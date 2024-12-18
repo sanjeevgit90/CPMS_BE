@@ -51,7 +51,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
             //.anyRequest().permitAll()
-            .antMatchers("/authenticate","/forgotpassword/*","/resetpassword","/unlockUser/**","/ipms/user","/ipms/department/selectionlist","/ipms/organization/selectionlist","/ipms/userprofile/selectionlist","/email/saveEmail","/ipms/geograpghy/**", "/swagger-ui.html","/webjars/**","/v2/**","/swagger-resources/**","/ipms/officelocation/selectionlist", "/ipms/ticket/getTicketByFilterWithoutBodyRequest").permitAll()
+            .antMatchers("/authenticate","/forgotpassword/*","/resetpassword","/unlockUser/**","/ipms/user","/ipms/department/selectionlist","/ipms/organization/selectionlist","/ipms/userprofile/selectionlist","/email/saveEmail","/ipms/geograpghy/**", "/swagger-ui.html","/webjars/**","/v2/**","/swagger-resources/**","/ipms/officelocation/selectionlist", "/ipms/ticket/getTicketByFilterWithoutBodyRequest",
+            		"/cpms/auropayclient","/cpms/client").permitAll()
             //.antMatchers("/ipms/test/**").hasAuthority("USER")
             .anyRequest().authenticated()
             .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
