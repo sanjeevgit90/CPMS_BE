@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import aurionpro.erp.ipms.utility.StringUtil;
+import java.util.UUID;
 
 
 @RestController()
@@ -28,6 +29,9 @@ public class ClientLoginController {
 
     @Autowired
     private ClientLoginService clientService;
+    
+    @Autowired
+    private AuroPayClientRepository auroClientRepo;
     
     
     @Autowired
@@ -58,10 +62,29 @@ public class ClientLoginController {
         AuroPayClient clientProfile= new AuroPayClient(client);
         auroClientService.createAuroPayClient(clientProfile);
 
-//        String msgBody="Dear User, <br><br> Thankyou for registring with us. <br>Your Password: " + randomPassword + "<br><br> Regards,<br>IPMS Team";
-//        emailService.sendEmail(uProfile.getUserName(),"Registration Successful", msgBody, "");
-
         return acCreate;
     }
+    
+    
+    @PostMapping("/login")
+    public ClientLoginResponse login(@RequestBody ClientLoginRequest loginRequest) {
 
+        Optional<ClientLogin> clientLoginOpt = clientRepo.findById(loginRequest.getClientname());
+
+        if (!clientLoginOpt.isPresent()) {
+            throw new EntityExistsException("Client does not exist.");
+        }
+
+        ClientLogin clientLogin = clientLoginOpt.get();
+
+        if (!passEncoder.matches(loginRequest.getPassword(), clientLogin.getPassword())) {
+            throw new RuntimeException("Invalid password.");
+        }
+
+        String token = UUID.randomUUID().toString();
+        
+        return new ClientLoginResponse(token);
+    }
 }
+
+
