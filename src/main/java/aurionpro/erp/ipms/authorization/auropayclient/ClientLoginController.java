@@ -82,7 +82,6 @@ public class ClientLoginController {
         }
 
         String token = UUID.randomUUID().toString();
-        
         return new ClientLoginResponse(token);
     }
 }
