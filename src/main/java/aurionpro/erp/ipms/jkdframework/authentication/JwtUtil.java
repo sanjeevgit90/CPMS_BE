@@ -8,6 +8,7 @@ import java.util.function.Function;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
+import aurionpro.erp.ipms.authorization.auropayclient.AuroPayClient;
 import aurionpro.erp.ipms.authorization.userprofile.UserProfile;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -81,4 +82,18 @@ public class JwtUtil{
         final String username=extractUserName(token);
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
+    //
+//    public String generateTokenClient(AuroPayClient client){
+//        Map<String,Object> claims=new HashMap<>();
+//        //claims.put("authority", uProfile.getAuthorities());
+//        claims.put("clientId", ());
+//        //claims.put("menu", uProfile.getMyMenus());
+//        claims.put("clientName", uProfile.getFirstName());
+//        claims.put("lastName", uProfile.getLastName());
+//        claims.put("orgId", orgId);
+//        return CreateToken(claims,userDetails.getUsername());
+//
+//    }
+    
+  
 }
