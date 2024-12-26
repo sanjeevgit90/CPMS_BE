@@ -38,6 +38,19 @@ public class GstMaster extends JKDEntityAuditWithId {
 	
 	@Transient
 	private String stateName;
+	
+	@Transient
+	private String partyId;
+	
+	
+
+	public String getPartyId() {
+		return partyId;
+	}
+
+	public void setPartyId(String partyId) {
+		this.partyId = partyId;
+	}
 
 	public PartyMaster getPartyMasterParent() {
 		return partyMasterParent;
