@@ -16,6 +16,8 @@ public class AuroPayClient extends JKDEntityAuditWithId {
 	@Column(length = 50,nullable = false)
 	private String clientName;
 	
+	private String password;
+	
 	@Column(length = 50,nullable = false)
 	private String emailId;
 	
@@ -37,7 +39,17 @@ public class AuroPayClient extends JKDEntityAuditWithId {
 	private String publicKey;
 	
 	private String token;
+	
+	
 
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
 	public String getPublicKey() {
 		return publicKey;

@@ -24,6 +24,20 @@ public class OpenBravoAddressMaster extends JKDEntityAudit {
 	@OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id")
 	private AddressMaster address;
+	
+	@Column(name = "client_id")
+	private Long clientId;
+	
+	
+	
+
+	public Long getClientId() {
+		return clientId;
+	}
+
+	public void setClientId(Long clientId) {
+		this.clientId = clientId;
+	}
 
 	public String getOpenBravoId() {
 		return openBravoId;

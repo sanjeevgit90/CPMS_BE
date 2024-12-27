@@ -12,5 +12,9 @@ public interface AuroPayClientRepository extends JpaRepository<AuroPayClient,Lon
 
 
 	Optional<AuroPayClient> findByClientName(String clientname);
+	
+
+	AuroPayClient findByEmailIdAndPasswordAndStatusAndIsDeleted(String clientname, String password, int i, boolean b);
+	AuroPayClient findByEmailIdAndStatusAndIsDeleted(String clientname, int i, boolean b);
 
 }

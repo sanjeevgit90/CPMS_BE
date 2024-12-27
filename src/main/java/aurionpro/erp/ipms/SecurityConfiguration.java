@@ -52,7 +52,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
             //.anyRequest().permitAll()
             .antMatchers("/authenticate","/forgotpassword/*","/resetpassword","/unlockUser/**","/ipms/user","/ipms/department/selectionlist","/ipms/organization/selectionlist","/ipms/userprofile/selectionlist","/email/saveEmail","/ipms/geograpghy/**", "/swagger-ui.html","/webjars/**","/v2/**","/swagger-resources/**","/ipms/officelocation/selectionlist", "/ipms/ticket/getTicketByFilterWithoutBodyRequest",
-            		"/cpms/auropayclient","/cpms/client","/cpms/client/login").permitAll()
+            		"/cpms/auropayclient","/cpms/client","/cpms/client/login","/cpms/auropayclient","/ipms/obparty/addparty","/ipms/obaddress/addaddress","/ipms/obgst/addgst").permitAll()
             //.antMatchers("/ipms/test/**").hasAuthority("USER")
             .anyRequest().authenticated()
             .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);

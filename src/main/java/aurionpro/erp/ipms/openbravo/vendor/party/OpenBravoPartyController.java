@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import aurionpro.erp.ipms.jkdframework.authentication.JwtUtil;
 import aurionpro.erp.ipms.jkdframework.jkdexception.EntityValidationException;
 import aurionpro.erp.ipms.openbravo.organisation.OpenBravoOrganisationRepository;
 
@@ -26,8 +28,13 @@ public class OpenBravoPartyController {
 	@Autowired
 	OpenBravoOrganisationRepository openBravoOrganisationRepo;
 	
+	@Autowired
+	private JwtUtil jwtUtil;
+	
 	@PostMapping("/addparty")
-    public OpenBravoPartyMaster createPartyMaster(@Valid @RequestBody OpenBravoPartyMaster partyMasterRequest){
+    public OpenBravoPartyMaster createPartyMaster(@Valid @RequestBody OpenBravoPartyMaster partyMasterRequest, HttpServletRequest httpServletRequest){
+		
+		Long clientId = jwtUtil.getUserIdFromJWT(httpServletRequest);
 		validateRequest(partyMasterRequest);
 		Optional<OpenBravoPartyMaster> tcheck = partyMasterRepo.findById(partyMasterRequest.getOpenBravoId());
 		if (tcheck.isPresent()){
@@ -35,16 +42,16 @@ public class OpenBravoPartyController {
         }
 		
 		//for replacing open bravo id's with our orgid in the request
-		if(StringUtils.isEmpty(partyMasterRequest.getParty().getObOrganisationId())){
-			throw new RuntimeException("OB-Organisation is required.");
-		} else {
-			Long orgId = openBravoOrganisationRepo.getOrgIdFromOpenBravoId(partyMasterRequest.getParty().getObOrganisationId());
-			if(StringUtils.isEmpty(orgId)) {
-				throw new RuntimeException("Organisation does not exists.");
-			}
-			partyMasterRequest.getParty().setOrganisationId(orgId);
-		}
-
+//		if(StringUtils.isEmpty(partyMasterRequest.getParty().getObOrganisationId())){
+//			throw new RuntimeException("OB-Organisation is required.");
+//		} else {
+//			Long orgId = openBravoOrganisationRepo.getOrgIdFromOpenBravoId(partyMasterRequest.getParty().getObOrganisationId());
+//			if(StringUtils.isEmpty(orgId)) {
+//				throw new RuntimeException("Organisation does not exists.");
+//			}
+//			partyMasterRequest.getParty().setOrganisationId(orgId);
+//		}
+		partyMasterRequest.setClientId(clientId);
         return partyMasterRepo.save(partyMasterRequest);
     }
 	

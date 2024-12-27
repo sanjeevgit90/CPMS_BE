@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import aurionpro.erp.ipms.jkdframework.authentication.JwtUtil;
 import aurionpro.erp.ipms.jkdframework.jkdexception.EntityValidationException;
 import aurionpro.erp.ipms.openbravo.vendor.party.OpenBravoPartyRepository;
 import aurionpro.erp.ipms.vendor.partymaster.PartyMaster;
@@ -26,9 +28,13 @@ public class OpenBravoGstController {
 	
 	@Autowired
 	OpenBravoPartyRepository openBravoPartyRepo;
+	
+	@Autowired
+	private JwtUtil jwtUtil;
 
 	@PostMapping("/addgst")
-    public OpenBravoGstMaster createGSTMaster(@Valid @RequestBody OpenBravoGstMaster gstMasterRequest){
+    public OpenBravoGstMaster createGSTMaster(@Valid @RequestBody OpenBravoGstMaster gstMasterRequest, HttpServletRequest httpServletRequest){
+		Long clientId = jwtUtil.getUserIdFromJWT(httpServletRequest);
 		validateRequest(gstMasterRequest);
         Optional<OpenBravoGstMaster> tcheck = gstMasterRepo.findById(gstMasterRequest.getOpenBravoId());
 		if (tcheck.isPresent()){
@@ -36,14 +42,14 @@ public class OpenBravoGstController {
         }
 		
 		//for replacing open bravo id's with our id, name in the request
-		Long partyId = openBravoPartyRepo.getPartyIdFromOpenBravoId(gstMasterRequest.getGst().getPartyId());
-		if(StringUtils.isEmpty(partyId)) {
-			throw new RuntimeException("Party does not exists.");
-		}
-		PartyMaster pm = new PartyMaster();
-		pm.setEntityId(partyId);
-		gstMasterRequest.getGst().setPartyMasterParent(pm);
-		
+//		Long partyId = openBravoPartyRepo.getPartyIdFromOpenBravoId(gstMasterRequest.getGst().getPartyId());
+//		if(StringUtils.isEmpty(partyId)) {
+//			throw new RuntimeException("Party does not exists.");
+//		}
+//		PartyMaster pm = new PartyMaster();
+//		pm.setEntityId(partyId);
+//		gstMasterRequest.getGst().setPartyMasterParent(pm);
+		gstMasterRequest.setClientId(clientId);
         return gstMasterRepo.save(gstMasterRequest);
     }
 	

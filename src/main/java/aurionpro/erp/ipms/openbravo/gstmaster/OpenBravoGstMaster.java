@@ -21,10 +21,25 @@ public class OpenBravoGstMaster extends JKDEntityAudit {
 	@Column(name = "open_bravo_id", length = 32)
 	private String openBravoId;
 	
+	@Column(name = "client_id")
+	private Long clientId;
+	
 	
 	@OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "gst_id")
 	private GstMaster gst;
+	
+	
+
+
+	public Long getClientId() {
+		return clientId;
+	}
+
+
+	public void setClientId(Long clientId) {
+		this.clientId = clientId;
+	}
 
 
 	public String getOpenBravoId() {

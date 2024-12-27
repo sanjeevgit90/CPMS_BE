@@ -25,15 +25,28 @@ public class OpenBravoPartyMaster extends JKDEntityAudit {
     @JoinColumn(name = "party_id")
 	private PartyMaster party;
 	
+	@Column(name = "client_id")
+	private Long clientId;
+	
 	/* already added in party master
 	@Column(name = "contact_id", length = 32)
 	private String contactId;
 	
 	@Column(name = "price_list", length = 32)
 	private String priceList;*/
+	
+	
 
 	public String getOpenBravoId() {
 		return openBravoId;
+	}
+
+	public Long getClientId() {
+		return clientId;
+	}
+
+	public void setClientId(Long clientId) {
+		this.clientId = clientId;
 	}
 
 	public void setOpenBravoId(String openBravoId) {
