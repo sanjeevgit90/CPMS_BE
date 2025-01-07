@@ -16,7 +16,7 @@ public class BusinessDetailsDTO {
     private String signatoryName;
     private String avgMonthlyTxns;
     private String businessDescription;
-    private String dateOfIncorporation;
+    private Long dateOfIncorporation;
     private String signatoryDesignation;
     private String correspondenceAddressLine1;
     private String correspondenceAddressLine2;
@@ -109,10 +109,10 @@ public class BusinessDetailsDTO {
 	public void setBusinessDescription(String businessDescription) {
 		this.businessDescription = businessDescription;
 	}
-	public String getDateOfIncorporation() {
+	public Long getDateOfIncorporation() {
 		return dateOfIncorporation;
 	}
-	public void setDateOfIncorporation(String dateOfIncorporation) {
+	public void setDateOfIncorporation(Long dateOfIncorporation) {
 		this.dateOfIncorporation = dateOfIncorporation;
 	}
 	public String getSignatoryDesignation() {

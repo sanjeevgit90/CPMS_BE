@@ -3,9 +3,11 @@ package aurionpro.erp.ipms.openbravo.vendor.party;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import javax.ws.rs.InternalServerErrorException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
@@ -16,7 +18,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 import aurionpro.erp.ipms.jkdframework.authentication.JwtUtil;
 import aurionpro.erp.ipms.jkdframework.jkdexception.EntityValidationException;
+import aurionpro.erp.ipms.openbravo.dto.BankDetailDTO;
+import aurionpro.erp.ipms.openbravo.dto.BankDetailsListDTO;
+import aurionpro.erp.ipms.openbravo.dto.GstDetailDTO;
+import aurionpro.erp.ipms.openbravo.dto.PartyMasterDTO;
+import aurionpro.erp.ipms.openbravo.gstmaster.OpenBravoGstMaster;
+import aurionpro.erp.ipms.openbravo.gstmaster.OpenBravoGstRepository;
 import aurionpro.erp.ipms.openbravo.organisation.OpenBravoOrganisationRepository;
+import aurionpro.erp.ipms.openbravo.vendor.address.OpenBravoAddressMaster;
+import aurionpro.erp.ipms.openbravo.vendor.address.OpenBravoAddressRepository;
+import aurionpro.erp.ipms.vendor.addressmaster.AddressMaster;
+import aurionpro.erp.ipms.vendor.gstmaster.GstMaster;
+import aurionpro.erp.ipms.vendor.partymaster.PartyMaster;
 
 @RestController
 @RequestMapping(value = "/ipms/obparty")
@@ -26,10 +39,18 @@ public class OpenBravoPartyController {
 	OpenBravoPartyRepository partyMasterRepo;
 	
 	@Autowired
+	OpenBravoAddressRepository addressMasterRepo;
+	
+	@Autowired
+	OpenBravoGstRepository gstMasterRepo;
+	
+	@Autowired
 	OpenBravoOrganisationRepository openBravoOrganisationRepo;
 	
 	@Autowired
 	private JwtUtil jwtUtil;
+	
+	
 	
 	@PostMapping("/addparty")
     public OpenBravoPartyMaster createPartyMaster(@Valid @RequestBody OpenBravoPartyMaster partyMasterRequest, HttpServletRequest httpServletRequest){
@@ -90,5 +111,85 @@ public class OpenBravoPartyController {
 			throw new EntityValidationException("Party entity is invalid", errorlist);
 		}
 		return true;
+	}
+
+	
+    @PostMapping("V2/vendor/add")
+	public  String addVendor(@RequestBody PartyMasterDTO dtoRequest, HttpServletRequest httpServletRequest) {
+    	
+    	try {
+			Long clientId = jwtUtil.getUserIdFromJWT(httpServletRequest);
+			
+			OpenBravoPartyMaster openbravoParty = new  OpenBravoPartyMaster();
+			PartyMaster party = new PartyMaster();
+			openbravoParty.setOpenBravoId(dtoRequest.getCaseId());
+			
+			party.setBankName(dtoRequest.getBankDetails().getBankDetails().get(0).getValue());
+			party.setBranchNameandAddress(dtoRequest.getBankDetails().getBankDetails().get(0).getValue());
+			party.setAccountNo(dtoRequest.getBankDetails().getBankAccountNumber());
+			party.setAccountType(dtoRequest.getBankDetails().getAccountType());
+			party.setContactPersonName(dtoRequest.getMerchantDetails().getContactPersonName());
+			party.setDateOfIncorporation(dtoRequest.getBusinessDetails().getDateOfIncorporation());
+			party.setEmailId(dtoRequest.getCompanyDetails().getEmail());
+			party.setIfscNeftCode(dtoRequest.getBankDetails().getBankIfscCode());
+			party.setMobileNo(dtoRequest.getCompanyDetails().getPhoneNumber());
+			party.setPanNo(dtoRequest.getBusinessDetails().getCompanyPan());
+			party.setPartyName(dtoRequest.getCompanyDetails().getCompanyName());
+			party.setPartyType(dtoRequest.getMerchantDetails().getPartyType());
+			party.setTanNo(dtoRequest.getBusinessDetails().getCompanyTan());
+			openbravoParty.setParty(party);
+			openbravoParty.setClientId(clientId);
+			OpenBravoPartyMaster openbravopartynew = partyMasterRepo.save(openbravoParty);
+			
+			if(openbravopartynew.getParty().getEntityId() != null) {
+				
+				List<GstDetailDTO> gstDetails = dtoRequest.getGstDetails();
+			  if(gstDetails != null && !gstDetails.isEmpty()) {
+				  
+				  for(GstDetailDTO gstDetailDTO : gstDetails) {
+					  OpenBravoGstMaster openbravoGst = new OpenBravoGstMaster();
+					GstMaster gst = new GstMaster();
+					String openBravogstID = UUID.randomUUID().toString();
+					openbravoGst.setOpenBravoId(openBravogstID);
+					gst.setGstNo(gstDetailDTO.getGstNumber());
+					gst.setState(gstDetailDTO.getGstState());
+					gst.setStatus("ACTIVE");
+					gst.setPartyMasterParent(openbravopartynew.getParty());
+					openbravoGst.setGst(gst);
+					openbravoGst.setClientId(clientId);
+					gstMasterRepo.save(openbravoGst);
+					
+					OpenBravoAddressMaster openbravoAddress = new OpenBravoAddressMaster();
+					AddressMaster address = new AddressMaster();
+					String openBravoaddressID = UUID.randomUUID().toString();
+					openbravoAddress.setOpenBravoId(openBravoaddressID);
+					address.setAddress1(gstDetailDTO.getAddressLine1());
+					address.setAddress2(gstDetailDTO.getAddressLine2());
+					address.setAddressType(gstDetailDTO.getAddressType());
+					address.setCity(gstDetailDTO.getCity());
+					address.setContactNo(gstDetailDTO.getPhoneNumber().getNumber());
+					address.setCountry(gstDetailDTO.getCountry());
+					address.setState(gstDetailDTO.getGstState());
+					address.setPinCode(gstDetailDTO.getPinCode());
+					address.setStatus("ACTIVE");
+					address.setPartyMasterParent(openbravopartynew.getParty());
+					openbravoAddress.setAddress(address);
+					
+					openbravoAddress.setClientId(clientId);
+					addressMasterRepo.save(openbravoAddress);
+				  }
+			  }
+			}
+		} catch (Exception e) {
+	
+			throw new InternalServerErrorException("Vendor is Not Created Successfully");
+//			e.printStackTrace();
+		}   	
+       return "Vendor save Succesfully";
+		
+		
+		
+    	
+    	
 	}
 }

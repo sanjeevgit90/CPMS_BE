@@ -6,6 +6,7 @@ public class BankDetailsListDTO {
 	
 	 private List<BankDetailDTO> bankDetails;
 	    private String bankIfscCode;
+	    private String accountType;
 	    private String beneficiaryName;
 	    private String bankAccountNumber;
 	    private String reenterBankAccountNumber;
@@ -16,6 +17,13 @@ public class BankDetailsListDTO {
 		}
 		public void setBankDetails(List<BankDetailDTO> bankDetails) {
 			this.bankDetails = bankDetails;
+		}
+		
+		public String getAccountType() {
+			return accountType;
+		}
+		public void setAccountType(String accountType) {
+			this.accountType = accountType;
 		}
 		public String getBankIfscCode() {
 			return bankIfscCode;

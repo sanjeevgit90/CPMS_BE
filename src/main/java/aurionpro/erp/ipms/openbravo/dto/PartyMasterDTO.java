@@ -1,5 +1,7 @@
 package aurionpro.erp.ipms.openbravo.dto;
 
+import java.util.List;
+
 public class PartyMasterDTO {
 	    private String caseId;
 	    private String timeZone;
@@ -7,7 +9,7 @@ public class PartyMasterDTO {
 	    private MerchantDetailsDTO merchantDetails;    
 	    private CompanyDetailsDTO companyDetails;      
 	    private BusinessDetailsDTO businessDetails;
-	    private GstDetailsListDTO gstDetails;
+	    private List<GstDetailDTO> gstDetails;
 	    private BankDetailsListDTO bankDetails;
 	    
 	    
@@ -47,10 +49,11 @@ public class PartyMasterDTO {
 		public void setBusinessDetails(BusinessDetailsDTO businessDetails) {
 			this.businessDetails = businessDetails;
 		}
-		public GstDetailsListDTO getGstDetails() {
+
+		public List<GstDetailDTO> getGstDetails() {
 			return gstDetails;
 		}
-		public void setGstDetails(GstDetailsListDTO gstDetails) {
+		public void setGstDetails(List<GstDetailDTO> gstDetails) {
 			this.gstDetails = gstDetails;
 		}
 		public BankDetailsListDTO getBankDetails() {
