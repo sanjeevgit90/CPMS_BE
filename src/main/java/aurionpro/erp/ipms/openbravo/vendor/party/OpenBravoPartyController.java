@@ -3,6 +3,7 @@ package aurionpro.erp.ipms.openbravo.vendor.party;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -122,12 +123,20 @@ public class OpenBravoPartyController {
 			
 			OpenBravoPartyMaster openbravoParty = new  OpenBravoPartyMaster();
 			PartyMaster party = new PartyMaster();
-			openbravoParty.setOpenBravoId(dtoRequest.getCaseId());
-			
+			openbravoParty.setOpenBravoId(dtoRequest.getCaseId());			
+		  if("Bank Name".equals(dtoRequest.getBankDetails().getBankDetails().get(0).getKey())) {
 			party.setBankName(dtoRequest.getBankDetails().getBankDetails().get(0).getValue());
-			party.setBranchNameandAddress(dtoRequest.getBankDetails().getBankDetails().get(0).getValue());
+		   }
+		  if("Bank Branch".equals(dtoRequest.getBankDetails().getBankDetails().get(1).getKey())) {
+			party.setBranchNameandAddress(dtoRequest.getBankDetails().getBankDetails().get(1).getValue());
+		  }
 			party.setAccountNo(dtoRequest.getBankDetails().getBankAccountNumber());
-			party.setAccountType(dtoRequest.getBankDetails().getAccountType());
+			String accountType = dtoRequest.getBankDetails().getAccountType();
+			if ("1".equals(accountType)) {
+			    party.setAccountType("Saving");  
+			} else if ("2".equals(accountType)) {
+			    party.setAccountType("Current");
+			}
 			party.setContactPersonName(dtoRequest.getMerchantDetails().getContactPersonName());
 			party.setDateOfIncorporation(dtoRequest.getBusinessDetails().getDateOfIncorporation());
 			party.setEmailId(dtoRequest.getCompanyDetails().getEmail());
@@ -137,6 +146,12 @@ public class OpenBravoPartyController {
 			party.setPartyName(dtoRequest.getCompanyDetails().getCompanyName());
 			party.setPartyType(dtoRequest.getMerchantDetails().getPartyType());
 			party.setTanNo(dtoRequest.getBusinessDetails().getCompanyTan());
+			party.setOrganisationId(391925L);
+			Random random = new Random();
+			int randomFourDigitNumber = 1000 + random.nextInt(9000);
+			party.setPartyNo(String.valueOf(randomFourDigitNumber));
+			party.setSmeRegNo("NA");
+			party.setNatureOfServiceProviding("NA");
 			openbravoParty.setParty(party);
 			openbravoParty.setClientId(clientId);
 			OpenBravoPartyMaster openbravopartynew = partyMasterRepo.save(openbravoParty);
@@ -146,10 +161,10 @@ public class OpenBravoPartyController {
 				List<GstDetailDTO> gstDetails = dtoRequest.getGstDetails();
 			  if(gstDetails != null && !gstDetails.isEmpty()) {
 				  
-				  for(GstDetailDTO gstDetailDTO : gstDetails) {
+				  for(GstDetailDTO gstDetailDTO : gstDetails) {			  
 					  OpenBravoGstMaster openbravoGst = new OpenBravoGstMaster();
 					GstMaster gst = new GstMaster();
-					String openBravogstID = UUID.randomUUID().toString();
+					String openBravogstID = UUID.randomUUID().toString().replace("-", "");
 					openbravoGst.setOpenBravoId(openBravogstID);
 					gst.setGstNo(gstDetailDTO.getGstNumber());
 					gst.setState(gstDetailDTO.getGstState());
@@ -161,11 +176,12 @@ public class OpenBravoPartyController {
 					
 					OpenBravoAddressMaster openbravoAddress = new OpenBravoAddressMaster();
 					AddressMaster address = new AddressMaster();
-					String openBravoaddressID = UUID.randomUUID().toString();
+					String openBravoaddressID = UUID.randomUUID().toString().replace("-", "");
 					openbravoAddress.setOpenBravoId(openBravoaddressID);
 					address.setAddress1(gstDetailDTO.getAddressLine1());
 					address.setAddress2(gstDetailDTO.getAddressLine2());
 					address.setAddressType(gstDetailDTO.getAddressType());
+					address.setFullAddress(gstDetailDTO.getAddressLine1());
 					address.setCity(gstDetailDTO.getCity());
 					address.setContactNo(gstDetailDTO.getPhoneNumber().getNumber());
 					address.setCountry(gstDetailDTO.getCountry());

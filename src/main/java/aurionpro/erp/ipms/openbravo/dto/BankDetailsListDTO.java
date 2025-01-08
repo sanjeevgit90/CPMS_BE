@@ -18,13 +18,6 @@ public class BankDetailsListDTO {
 		public void setBankDetails(List<BankDetailDTO> bankDetails) {
 			this.bankDetails = bankDetails;
 		}
-		
-		public String getAccountType() {
-			return accountType;
-		}
-		public void setAccountType(String accountType) {
-			this.accountType = accountType;
-		}
 		public String getBankIfscCode() {
 			return bankIfscCode;
 		}
@@ -33,6 +26,13 @@ public class BankDetailsListDTO {
 		}
 		public String getBeneficiaryName() {
 			return beneficiaryName;
+		}
+		
+		public String getAccountType() {
+			return accountType;
+		}
+		public void setAccountType(String accountType) {
+			this.accountType = accountType;
 		}
 		public void setBeneficiaryName(String beneficiaryName) {
 			this.beneficiaryName = beneficiaryName;
