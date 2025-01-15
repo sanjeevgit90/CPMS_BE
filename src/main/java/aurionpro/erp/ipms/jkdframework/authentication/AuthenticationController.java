@@ -82,7 +82,7 @@ public class AuthenticationController{
  		
  		 msgBody = msgBody.replace("UNLOCKURL", url);
   		
-         emailService.sendEmail(username, "Unlock IPMS Account", msgBody, "");
+         emailService.sendEmail(username, "Unlock CPMS Account", msgBody, "");
 	}
 
 	@Autowired
@@ -92,7 +92,7 @@ public class AuthenticationController{
     public ResponseEntity<?> forgotPasswordLinkGeneration(@PathVariable(value = "username") String username){
         
         String token=loginService.GenerateForgotPasswordToken(username);
-        String msgBody="Dear User, <br><br> Your token to reset Password: " + token + "<br><br> Regards,<br>IPMS Team";
+        String msgBody="Dear User, <br><br> Your token to reset Password: " + token + "<br><br> Regards,<br>CPMS Team";
 
         emailService.sendEmail(username, "Reset Password Token", msgBody, "");
        // return ResponseEntity.ok("Passsword Reset Token has been send on your Email Id");
@@ -104,7 +104,7 @@ public class AuthenticationController{
         
         loginService.ResetUserPassword(resetRequest);
 
-        String msgBody="Dear User, <br><br> Your Password has been changed Successfully <br><br>Note: If it is not you please report immediately <br><br> Regards,<br>IPMS Team";
+        String msgBody="Dear User, <br><br> Your Password has been changed Successfully <br><br>Note: If it is not you please report immediately <br><br> Regards,<br>CPMS Team";
         emailService.sendEmail(resetRequest.getUsername(), "Password changed", msgBody, "");
         
       //  return ResponseEntity.ok("Password has been reset successfully");
@@ -117,7 +117,7 @@ public class AuthenticationController{
         
         loginService.unlockUserAccount(userName, token);
 
-        String msgBody="Dear User, <br><br> Your account has been unlocked Successfully. You can try login in your account <br><br>Note: If it is not you please report immediately <br><br> Regards,<br>IPMS Team";
+        String msgBody="Dear User, <br><br> Your account has been unlocked Successfully. You can try login in your account <br><br>Note: If it is not you please report immediately <br><br> Regards,<br>CPMS Team";
         emailService.sendEmail(userName, "Account is unlocked", msgBody, "");
         
       //  return ResponseEntity.ok("Password has been reset successfully");

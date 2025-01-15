@@ -183,7 +183,10 @@ public class OpenBravoPartyController {
 					String openBravogstID = UUID.randomUUID().toString().replace("-", "");
 					openbravoGst.setOpenBravoId(openBravogstID);
 					gst.setGstNo(gstDetailDTO.getGstNumber());
-					gst.setState(gstDetailDTO.getGstState());
+					String state = gstDetailDTO.getState();  
+					String stateName = state.substring(state.indexOf("-") + 1);
+					gst.setState(stateName); 
+//					gst.setState(gstDetailDTO.getGstState());
 					gst.setStatus("ACTIVE");
 					gst.setPartyMasterParent(openbravopartynew.getParty());
 					openbravoGst.setGst(gst);
@@ -201,7 +204,10 @@ public class OpenBravoPartyController {
 					address.setCity(gstDetailDTO.getCity());
 					address.setContactNo(gstDetailDTO.getPhoneNumber().getNumber());
 					address.setCountry(gstDetailDTO.getCountry());
-					address.setState(gstDetailDTO.getGstState());
+					String addressstate = gstDetailDTO.getState();  
+					String addstateName = state.substring(state.indexOf("-") + 1);
+					address.setState(addstateName); 
+//					address.setState(gstDetailDTO.getGstState());
 					address.setPinCode(gstDetailDTO.getPinCode());
 					address.setStatus("ACTIVE");
 					address.setPartyMasterParent(openbravopartynew.getParty());
