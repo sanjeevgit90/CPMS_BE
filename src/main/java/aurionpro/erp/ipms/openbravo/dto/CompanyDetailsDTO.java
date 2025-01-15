@@ -1,17 +1,31 @@
 package aurionpro.erp.ipms.openbravo.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class CompanyDetailsDTO {
 	
 	 private String city;
 	    private String email;
 	    private String state;
 	    private String country;
+	    
+	    @JsonProperty("pin_code")
 	    private String pinCode;
 	    private String website;
+	    
+	    @JsonProperty("company_name")
 	    private String companyName;
+	    
+	    @JsonProperty("country_code")
 	    private String countryCode;
+	    
+	    @JsonProperty("phone_number")
 	    private String phoneNumber;
+	    
+	    @JsonProperty("reg_address_line_1")
 	    private String regAddressLine1;
+	    
+	    @JsonProperty("reg_address_line_2")
 	    private String regAddressLine2;
 		public String getCity() {
 			return city;

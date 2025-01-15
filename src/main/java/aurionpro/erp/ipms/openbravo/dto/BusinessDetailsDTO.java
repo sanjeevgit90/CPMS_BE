@@ -1,29 +1,69 @@
 package aurionpro.erp.ipms.openbravo.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class BusinessDetailsDTO {
 	
 	private String city;
     private String email;
     private String state;
     private String country;
+    
+    @JsonProperty("dba_name")
     private String dbaName;
+    
+    @JsonProperty("pin_code")
     private String pinCode;
+    
+    @JsonProperty("company_pan")
     private String companyPan;
+    
+    @JsonProperty("company_t_a_n")
     private String companyTan;
+    
+    @JsonProperty("address_type")
     private String addressType;
+    
+    @JsonProperty("country_code")
     private String countryCode;
+    
+    @JsonProperty("phone_number")
     private String phoneNumber;
+    
+    @JsonProperty("signatory_name")
     private String signatoryName;
+    
+    @JsonProperty("avg_monthly_txns")
     private String avgMonthlyTxns;
+    
+    @JsonProperty("business_description")
     private String businessDescription;
-    private Long dateOfIncorporation;
+    
+    @JsonProperty("date_of_incorporation")
+    private String dateOfIncorporation;
+    
+    @JsonProperty("signatory_designation")
     private String signatoryDesignation;
+    
+    @JsonProperty("correspondence_address_line_1")
     private String correspondenceAddressLine1;
+    
+    @JsonProperty("correspondence_address_line_2")
     private String correspondenceAddressLine2;
+    
+    @JsonProperty("avg_ticket_size")
     private String avgTicketSize;
+    
+    @JsonProperty("business_type")
     private String businessType;
+    
+    @JsonProperty("business_category")
     private String businessCategory;
+    
+    @JsonProperty("business_sub_category")
     private String businessSubCategory;
+    
+    @JsonProperty("currency_acceptance")
     private String currencyAcceptance;
 	public String getCity() {
 		return city;
@@ -109,10 +149,10 @@ public class BusinessDetailsDTO {
 	public void setBusinessDescription(String businessDescription) {
 		this.businessDescription = businessDescription;
 	}
-	public Long getDateOfIncorporation() {
+	public String getDateOfIncorporation() {
 		return dateOfIncorporation;
 	}
-	public void setDateOfIncorporation(Long dateOfIncorporation) {
+	public void setDateOfIncorporation(String dateOfIncorporation) {
 		this.dateOfIncorporation = dateOfIncorporation;
 	}
 	public String getSignatoryDesignation() {

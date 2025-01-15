@@ -1,5 +1,7 @@
 package aurionpro.erp.ipms.openbravo.vendor.party;
 
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -10,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import javax.ws.rs.InternalServerErrorException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -50,6 +54,8 @@ public class OpenBravoPartyController {
 	
 	@Autowired
 	private JwtUtil jwtUtil;
+	
+	private final Logger logger = LoggerFactory.getLogger(OpenBravoPartyController.class);
 	
 	
 	
@@ -123,7 +129,8 @@ public class OpenBravoPartyController {
 			
 			OpenBravoPartyMaster openbravoParty = new  OpenBravoPartyMaster();
 			PartyMaster party = new PartyMaster();
-			openbravoParty.setOpenBravoId(dtoRequest.getCaseId());			
+			openbravoParty.setOpenBravoId(dtoRequest.getCaseId());
+						
 		  if("Bank Name".equals(dtoRequest.getBankDetails().getBankDetails().get(0).getKey())) {
 			party.setBankName(dtoRequest.getBankDetails().getBankDetails().get(0).getValue());
 		   }
@@ -131,14 +138,23 @@ public class OpenBravoPartyController {
 			party.setBranchNameandAddress(dtoRequest.getBankDetails().getBankDetails().get(1).getValue());
 		  }
 			party.setAccountNo(dtoRequest.getBankDetails().getBankAccountNumber());
-			String accountType = dtoRequest.getBankDetails().getAccountType();
-			if ("1".equals(accountType)) {
+			Integer accountType = dtoRequest.getBankDetails().getAccounttype();
+			if (accountType== 1) {
 			    party.setAccountType("Saving");  
-			} else if ("2".equals(accountType)) {
+			} else if (accountType== 2) {
 			    party.setAccountType("Current");
 			}
 			party.setContactPersonName(dtoRequest.getMerchantDetails().getContactPersonName());
-			party.setDateOfIncorporation(dtoRequest.getBusinessDetails().getDateOfIncorporation());
+			String dateOfIncorporationStr = dtoRequest.getBusinessDetails().getDateOfIncorporation();
+	        if (dateOfIncorporationStr != null && !dateOfIncorporationStr.isEmpty()) {
+	            // Parse the string to ZonedDateTime
+	            ZonedDateTime zonedDateTime = ZonedDateTime.parse(dateOfIncorporationStr, DateTimeFormatter.ISO_DATE_TIME);
+	            // Convert ZonedDateTime to milliseconds
+	            long dateOfIncorporationTimestamp = zonedDateTime.toInstant().toEpochMilli();
+	            // Set the milliseconds timestamp to the party
+	            party.setDateOfIncorporation(dateOfIncorporationTimestamp);
+	        }
+//			party.setDateOfIncorporation(dtoRequest.getBusinessDetails().getDateOfIncorporation());
 			party.setEmailId(dtoRequest.getCompanyDetails().getEmail());
 			party.setIfscNeftCode(dtoRequest.getBankDetails().getBankIfscCode());
 			party.setMobileNo(dtoRequest.getCompanyDetails().getPhoneNumber());
@@ -198,6 +214,8 @@ public class OpenBravoPartyController {
 			}
 		} catch (Exception e) {
 	
+			 logger.error("An error occurred while adding the vendor: " + e.getMessage(), e);
+			 
 			throw new InternalServerErrorException("Vendor is Not Created Successfully");
 //			e.printStackTrace();
 		}   	

@@ -2,15 +2,30 @@ package aurionpro.erp.ipms.openbravo.dto;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class BankDetailsListDTO {
 	
-	 private List<BankDetailDTO> bankDetails;
+	    @JsonProperty("bank_details")
+	    private List<BankDetailDTO> bankDetails;
+	    
+	    @JsonProperty("bank_ifsc_code")
 	    private String bankIfscCode;
-	    private String accountType;
+
+	    private Integer accounttype;
+	    
+	    @JsonProperty("beneficiary_name")
 	    private String beneficiaryName;
+	    
+	    @JsonProperty("bank_account_number")
 	    private String bankAccountNumber;
+	    
+	    @JsonProperty("reenterbank_account_number")
 	    private String reenterBankAccountNumber;
+	    
 	    private String currency;
+	    
+	    @JsonProperty("bank_name")
 	    private String bankName;
 		public List<BankDetailDTO> getBankDetails() {
 			return bankDetails;
@@ -28,11 +43,12 @@ public class BankDetailsListDTO {
 			return beneficiaryName;
 		}
 		
-		public String getAccountType() {
-			return accountType;
+	
+		public Integer getAccounttype() {
+			return accounttype;
 		}
-		public void setAccountType(String accountType) {
-			this.accountType = accountType;
+		public void setAccounttype(Integer accounttype) {
+			this.accounttype = accounttype;
 		}
 		public void setBeneficiaryName(String beneficiaryName) {
 			this.beneficiaryName = beneficiaryName;

@@ -1,9 +1,13 @@
 package aurionpro.erp.ipms.openbravo.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class BankDetailDTO {
 	
 	private String key;
     private String value;
+    
+    @JsonProperty("css_class")
     private String cssClass;
 	public String getKey() {
 		return key;

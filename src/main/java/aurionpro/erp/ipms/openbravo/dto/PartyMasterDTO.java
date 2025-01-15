@@ -2,14 +2,32 @@ package aurionpro.erp.ipms.openbravo.dto;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class PartyMasterDTO {
+	
+	    @JsonProperty("case_id")
 	    private String caseId;
+	    
+	    @JsonProperty("time_zone")
 	    private String timeZone;
+	    
+	    @JsonProperty("country_name")
 	    private String countryName;
-	    private MerchantDetailsDTO merchantDetails;    
-	    private CompanyDetailsDTO companyDetails;      
+	    
+	    @JsonProperty("merchant_details")
+	    private MerchantDetailsDTO merchantDetails; 
+	    
+	    @JsonProperty("company_details")
+	    private CompanyDetailsDTO companyDetails;   
+	    
+	    @JsonProperty("business_details")
 	    private BusinessDetailsDTO businessDetails;
+	    
+	    @JsonProperty("gst_details")
 	    private List<GstDetailDTO> gstDetails;
+	    
+	    @JsonProperty("bank_details")
 	    private BankDetailsListDTO bankDetails;
 	    
 	    

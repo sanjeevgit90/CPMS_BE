@@ -1,8 +1,12 @@
 package aurionpro.erp.ipms.openbravo.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class PhoneNumberDTO {
 	
 	    private String number;
+	    
+	    @JsonProperty("isd_code")
 	    private String isdCode;
 		public String getNumber() {
 			return number;
