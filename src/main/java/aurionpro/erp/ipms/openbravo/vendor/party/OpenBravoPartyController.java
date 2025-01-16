@@ -121,36 +121,36 @@ public class OpenBravoPartyController {
 	}
 
 	
-    @PostMapping("V2/vendor/add")
-	public  String addVendor(@RequestBody PartyMasterDTO dtoRequest, HttpServletRequest httpServletRequest) {
-    	
-    	try {
+	@PostMapping("V2/vendor/add")
+	public String addVendor(@RequestBody PartyMasterDTO dtoRequest, HttpServletRequest httpServletRequest) {
+
+		try {
 			Long clientId = jwtUtil.getUserIdFromJWT(httpServletRequest);
-			
-			OpenBravoPartyMaster openbravoParty = new  OpenBravoPartyMaster();
+
+			OpenBravoPartyMaster openbravoParty = new OpenBravoPartyMaster();
 			PartyMaster party = new PartyMaster();
 			openbravoParty.setOpenBravoId(dtoRequest.getCaseId());
-						
-		  if("Bank Name".equals(dtoRequest.getBankDetails().getBankDetails().get(0).getKey())) {
-			party.setBankName(dtoRequest.getBankDetails().getBankDetails().get(0).getValue());
-		   }
-		  if("Bank Branch".equals(dtoRequest.getBankDetails().getBankDetails().get(1).getKey())) {
-			party.setBranchNameandAddress(dtoRequest.getBankDetails().getBankDetails().get(1).getValue());
-		  }
+			if ("Bank Name".equals(dtoRequest.getBankDetails().getBankDetails().get(0).getKey())) {
+				party.setBankName(dtoRequest.getBankDetails().getBankDetails().get(0).getValue());
+			}
+			if ("Bank Branch".equals(dtoRequest.getBankDetails().getBankDetails().get(1).getKey())) {
+				party.setBranchNameandAddress(dtoRequest.getBankDetails().getBankDetails().get(1).getValue());
+			}
 			party.setAccountNo(dtoRequest.getBankDetails().getBankAccountNumber());
 			Integer accountType = dtoRequest.getBankDetails().getAccounttype();
-			if (accountType== 1) {
-			    party.setAccountType("Saving");  
-			} else if (accountType== 2) {
-			    party.setAccountType("Current");
+			if (accountType == 1) {
+				party.setAccountType("Saving");
+			} else if (accountType == 2) {
+				party.setAccountType("Current");
 			}
 			party.setContactPersonName(dtoRequest.getMerchantDetails().getContactPersonName());
 			String dateOfIncorporationStr = dtoRequest.getBusinessDetails().getDateOfIncorporation();
-	        if (dateOfIncorporationStr != null && !dateOfIncorporationStr.isEmpty()) {
-	            ZonedDateTime zonedDateTime = ZonedDateTime.parse(dateOfIncorporationStr, DateTimeFormatter.ISO_DATE_TIME);
-	            long dateOfIncorporationTimestamp = zonedDateTime.toInstant().toEpochMilli();
-	            party.setDateOfIncorporation(dateOfIncorporationTimestamp);
-	        }
+			if (dateOfIncorporationStr != null && !dateOfIncorporationStr.isEmpty()) {
+				ZonedDateTime zonedDateTime = ZonedDateTime.parse(dateOfIncorporationStr,
+						DateTimeFormatter.ISO_DATE_TIME);
+				long dateOfIncorporationTimestamp = zonedDateTime.toInstant().toEpochMilli();
+				party.setDateOfIncorporation(dateOfIncorporationTimestamp);
+			}
 			party.setEmailId(dtoRequest.getCompanyDetails().getEmail());
 			party.setIfscNeftCode(dtoRequest.getBankDetails().getBankIfscCode());
 			party.setMobileNo(dtoRequest.getCompanyDetails().getPhoneNumber());
@@ -172,67 +172,63 @@ public class OpenBravoPartyController {
 			openbravoParty.setParty(party);
 			openbravoParty.setClientId(clientId);
 			OpenBravoPartyMaster openbravopartynew = partyMasterRepo.save(openbravoParty);
-			
-			if(openbravopartynew.getParty().getEntityId() != null) {
-				
+
+			if (openbravopartynew.getParty().getEntityId() != null) {
+
 				List<GstDetailDTO> gstDetails = dtoRequest.getGstDetails();
-			  if(gstDetails != null && !gstDetails.isEmpty()) {
-				  
-				  for(GstDetailDTO gstDetailDTO : gstDetails) {			  
-					  OpenBravoGstMaster openbravoGst = new OpenBravoGstMaster();
-					GstMaster gst = new GstMaster();
-					String openBravogstID = UUID.randomUUID().toString().replace("-", "");
-					openbravoGst.setOpenBravoId(openBravogstID);
-					gst.setGstNo(gstDetailDTO.getGstNumber());
-					String state = gstDetailDTO.getState();  
-					String stateName = state.substring(state.indexOf("-") + 1);
-					gst.setState(stateName); 
-					gst.setGstNoAttachment("NA");
-					gst.setStatus("ACTIVE");
-					gst.setPartyMasterParent(openbravopartynew.getParty());
-					openbravoGst.setGst(gst);
-					openbravoGst.setClientId(clientId);
-					gstMasterRepo.save(openbravoGst);
-					
-					OpenBravoAddressMaster openbravoAddress = new OpenBravoAddressMaster();
-					AddressMaster address = new AddressMaster();
-					String openBravoaddressID = UUID.randomUUID().toString().replace("-", "");
-					openbravoAddress.setOpenBravoId(openBravoaddressID);
-					address.setAddress1(gstDetailDTO.getAddressLine1());
-					address.setAddress2(gstDetailDTO.getAddressLine2());
-					address.setAddressType(gstDetailDTO.getAddressType());
-					address.setFullAddress(gstDetailDTO.getAddressLine1());
-					address.setCity(gstDetailDTO.getCity());
-					address.setContactNo(gstDetailDTO.getPhoneNumber().getNumber());
-					address.setCountry(gstDetailDTO.getCountry());
-					address.setContactPerson("NA");
-					String addressstate = gstDetailDTO.getState();  
-					String addstateName = state.substring(state.indexOf("-") + 1);
-					address.setState(addstateName); 
-					address.setLandmark("NA");
-					address.setDistrict("NA");
-					address.setPinCode(gstDetailDTO.getPinCode());
-					address.setStatus("ACTIVE");
-					address.setPartyMasterParent(openbravopartynew.getParty());
-					openbravoAddress.setAddress(address);
-					
-					openbravoAddress.setClientId(clientId);
-					addressMasterRepo.save(openbravoAddress);
-				  }
-			  }
+				if (gstDetails != null && !gstDetails.isEmpty()) {
+
+					for (GstDetailDTO gstDetailDTO : gstDetails) {
+						OpenBravoGstMaster openbravoGst = new OpenBravoGstMaster();
+						GstMaster gst = new GstMaster();
+						String openBravogstID = UUID.randomUUID().toString().replace("-", "");
+						openbravoGst.setOpenBravoId(openBravogstID);
+						gst.setGstNo(gstDetailDTO.getGstNumber());
+						String state = gstDetailDTO.getState();
+						String stateName = state.substring(state.indexOf("-") + 1);
+						gst.setState(stateName);
+						gst.setGstNoAttachment("NA");
+						gst.setStatus("ACTIVE");
+						gst.setPartyMasterParent(openbravopartynew.getParty());
+						openbravoGst.setGst(gst);
+						openbravoGst.setClientId(clientId);
+						gstMasterRepo.save(openbravoGst);
+
+						OpenBravoAddressMaster openbravoAddress = new OpenBravoAddressMaster();
+						AddressMaster address = new AddressMaster();
+						String openBravoaddressID = UUID.randomUUID().toString().replace("-", "");
+						openbravoAddress.setOpenBravoId(openBravoaddressID);
+						address.setAddress1(gstDetailDTO.getAddressLine1());
+						address.setAddress2(gstDetailDTO.getAddressLine2());
+						address.setAddressType(gstDetailDTO.getAddressType());
+						address.setFullAddress(gstDetailDTO.getAddressLine1());
+						address.setCity(gstDetailDTO.getCity());
+						address.setContactNo(gstDetailDTO.getPhoneNumber().getNumber());
+						address.setCountry(gstDetailDTO.getCountry());
+						address.setContactPerson("NA");
+						String addressstate = gstDetailDTO.getState();
+						String addstateName = state.substring(state.indexOf("-") + 1);
+						address.setState(addstateName);
+						address.setLandmark("NA");
+						address.setDistrict("NA");
+						address.setPinCode(gstDetailDTO.getPinCode());
+						address.setStatus("ACTIVE");
+						address.setPartyMasterParent(openbravopartynew.getParty());
+						openbravoAddress.setAddress(address);
+
+						openbravoAddress.setClientId(clientId);
+						addressMasterRepo.save(openbravoAddress);
+					}
+				}
 			}
 		} catch (Exception e) {
-	
-			 logger.error("An error occurred while adding the vendor: " + e.getMessage(), e);
-			 
+
+			logger.error("An error occurred while adding the vendor: " + e.getMessage(), e);
+
 			throw new InternalServerErrorException("Vendor is Not Created Successfully");
 //			e.printStackTrace();
-		}   	
-       return "Vendor save Succesfully";
-		
-		
-		
-    	
-    	
+		}
+		return "Vendor save Succesfully";
+
 	}
 }
