@@ -147,14 +147,10 @@ public class OpenBravoPartyController {
 			party.setContactPersonName(dtoRequest.getMerchantDetails().getContactPersonName());
 			String dateOfIncorporationStr = dtoRequest.getBusinessDetails().getDateOfIncorporation();
 	        if (dateOfIncorporationStr != null && !dateOfIncorporationStr.isEmpty()) {
-	            // Parse the string to ZonedDateTime
 	            ZonedDateTime zonedDateTime = ZonedDateTime.parse(dateOfIncorporationStr, DateTimeFormatter.ISO_DATE_TIME);
-	            // Convert ZonedDateTime to milliseconds
 	            long dateOfIncorporationTimestamp = zonedDateTime.toInstant().toEpochMilli();
-	            // Set the milliseconds timestamp to the party
 	            party.setDateOfIncorporation(dateOfIncorporationTimestamp);
 	        }
-//			party.setDateOfIncorporation(dtoRequest.getBusinessDetails().getDateOfIncorporation());
 			party.setEmailId(dtoRequest.getCompanyDetails().getEmail());
 			party.setIfscNeftCode(dtoRequest.getBankDetails().getBankIfscCode());
 			party.setMobileNo(dtoRequest.getCompanyDetails().getPhoneNumber());
@@ -166,7 +162,12 @@ public class OpenBravoPartyController {
 			Random random = new Random();
 			int randomFourDigitNumber = 1000 + random.nextInt(9000);
 			party.setPartyNo(String.valueOf(randomFourDigitNumber));
+			party.setArnNo("NA");
 			party.setSmeRegNo("NA");
+			party.setMicrCode("NA");
+			party.setContactId("NA");
+			party.setRemarks("NA");
+			party.setLandlineNo("NA");
 			party.setNatureOfServiceProviding("NA");
 			openbravoParty.setParty(party);
 			openbravoParty.setClientId(clientId);
@@ -186,7 +187,7 @@ public class OpenBravoPartyController {
 					String state = gstDetailDTO.getState();  
 					String stateName = state.substring(state.indexOf("-") + 1);
 					gst.setState(stateName); 
-//					gst.setState(gstDetailDTO.getGstState());
+					gst.setGstNoAttachment("NA");
 					gst.setStatus("ACTIVE");
 					gst.setPartyMasterParent(openbravopartynew.getParty());
 					openbravoGst.setGst(gst);
@@ -204,10 +205,12 @@ public class OpenBravoPartyController {
 					address.setCity(gstDetailDTO.getCity());
 					address.setContactNo(gstDetailDTO.getPhoneNumber().getNumber());
 					address.setCountry(gstDetailDTO.getCountry());
+					address.setContactPerson("NA");
 					String addressstate = gstDetailDTO.getState();  
 					String addstateName = state.substring(state.indexOf("-") + 1);
 					address.setState(addstateName); 
-//					address.setState(gstDetailDTO.getGstState());
+					address.setLandmark("NA");
+					address.setDistrict("NA");
 					address.setPinCode(gstDetailDTO.getPinCode());
 					address.setStatus("ACTIVE");
 					address.setPartyMasterParent(openbravopartynew.getParty());
