@@ -117,10 +117,10 @@ public class AddressMasterController {
 			errorlist.add("Address line 1 cannot be null.");
 		if(StringUtils.isEmpty(request.getState()))
 			errorlist.add("State cannot be null.");
-		if(StringUtils.isEmpty(request.getDistrict()))
-			errorlist.add("District cannot be null.");
-		if(StringUtils.isEmpty(request.getCity()))
-			errorlist.add("City cannot be null.");
+//		if(StringUtils.isEmpty(request.getDistrict()))
+//			errorlist.add("District cannot be null.");
+//		if(StringUtils.isEmpty(request.getCity()))
+//			errorlist.add("City cannot be null.");
 		if(StringUtils.isEmpty(request.getCountry()))
 			errorlist.add("Country cannot be null.");
 		if(StringUtils.isEmpty(request.getPartyMasterParent().getEntityId()))

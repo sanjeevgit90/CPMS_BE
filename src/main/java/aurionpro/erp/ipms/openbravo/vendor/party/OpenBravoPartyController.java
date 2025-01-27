@@ -185,7 +185,7 @@ public class OpenBravoPartyController {
 						openbravoGst.setOpenBravoId(openBravogstID);
 						gst.setGstNo(gstDetailDTO.getGstNumber());
 						String state = gstDetailDTO.getState();
-						String stateName = state.substring(state.indexOf("-") + 1);
+						String stateName = state.substring(state.indexOf("-") + 1).toUpperCase();
 						gst.setState(stateName);
 						gst.setGstNoAttachment("NA");
 						gst.setStatus("ACTIVE");
@@ -207,7 +207,7 @@ public class OpenBravoPartyController {
 						address.setCountry(gstDetailDTO.getCountry());
 						address.setContactPerson("NA");
 						String addressstate = gstDetailDTO.getState();
-						String addstateName = state.substring(state.indexOf("-") + 1);
+						String addstateName = state.substring(state.indexOf("-") + 1).toUpperCase();
 						address.setState(addstateName);
 						address.setLandmark("NA");
 						address.setDistrict("NA");
