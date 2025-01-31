@@ -36,7 +36,7 @@ public interface PurchaseOrderRepository extends JpaRepository<PurchaseOrderMast
 
 	@Modifying
 	@Transactional
-	@Query("update PurchaseOrderMaster set mailSentDate = ?2, mailSentBy = ?3 where entityId = ?1")
+	@Query("update PurchaseOrderMaster set mailSentDate = ?2, mailSentBy = ?3,approvalStatus = 'APPROVED & EMAIL SENT' where entityId = ?1")
 	public void updateMailSentStatus(long poId, long sentDate, String sentBy);
 	
 	@Query(value="select p.attachment from ordermgmt.purchase_order_attachments p where p.purchaseorderid = ?1", nativeQuery = true)
