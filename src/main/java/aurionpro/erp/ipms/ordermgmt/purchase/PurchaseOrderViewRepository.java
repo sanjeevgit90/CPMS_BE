@@ -15,16 +15,16 @@ public interface PurchaseOrderViewRepository extends JpaRepository<PurchaseOrder
 	@Query("select p.approvalStatus as approvalStatus, count(p.approvalStatus) as approvalStatusCount from PurchaseOrderView p GROUP BY approvalStatus")
     public List<ApprovalReport> getApprovalCount();
 	
-	@Query("SELECT accName as name, count(purchaseOrderNo) as count, sum(grandTotal) as allTotalOfPo FROM PurchaseOrderView WHERE approvalStatus = 'APPROVED' GROUP BY accName ORDER BY accName")
+	@Query("SELECT accName as name, count(purchaseOrderNo) as count, sum(grandTotal) as allTotalOfPo FROM PurchaseOrderView WHERE approvalStatus IN ('APPROVED', 'APPROVED & EMAIL SENT') GROUP BY accName ORDER BY accName")
     public List<ProjectVendorWiseReportDto> getProjectWiseReport();
 	
-	@Query("SELECT suppName as name, count(purchaseOrderNo) as count, sum(grandTotal) as allTotalOfPo FROM PurchaseOrderView WHERE approvalStatus = 'APPROVED' GROUP BY suppName ORDER BY suppName")
+	@Query("SELECT suppName as name, count(purchaseOrderNo) as count, sum(grandTotal) as allTotalOfPo FROM PurchaseOrderView WHERE approvalStatus IN ('APPROVED', 'APPROVED & EMAIL SENT') GROUP BY suppName ORDER BY suppName")
     public List<ProjectVendorWiseReportDto> getVendorWiseReport();
 	
-	@Query("SELECT accName as name, count(purchaseOrderNo) as count, sum(grandTotal) as allTotalOfPo FROM PurchaseOrderView WHERE approvalStatus = 'APPROVED' AND orderDate BETWEEN ?1 AND ?2 GROUP BY accName ORDER BY accName")
+	@Query("SELECT accName as name, count(purchaseOrderNo) as count, sum(grandTotal) as allTotalOfPo FROM PurchaseOrderView WHERE approvalStatus IN ('APPROVED', 'APPROVED & EMAIL SENT') AND orderDate BETWEEN ?1 AND ?2 GROUP BY accName ORDER BY accName")
     public List<ProjectVendorWiseReportDto> getProjectWiseDateReport(Long fromDate, Long toDate);
 	
-	@Query("SELECT suppName as name, count(purchaseOrderNo) as count, sum(grandTotal) as allTotalOfPo FROM PurchaseOrderView WHERE approvalStatus = 'APPROVED' AND orderDate BETWEEN ?1 AND ?2 GROUP BY suppName ORDER BY suppName")
+	@Query("SELECT suppName as name, count(purchaseOrderNo) as count, sum(grandTotal) as allTotalOfPo FROM PurchaseOrderView WHERE approvalStatus IN ('APPROVED', 'APPROVED & EMAIL SENT') AND orderDate BETWEEN ?1 AND ?2 GROUP BY suppName ORDER BY suppName")
     public List<ProjectVendorWiseReportDto> getVendorWiseDateReport(Long fromDate, Long toDate);
 
 	@Query(value="select * from ordermgmt.pofilterbysp(?1,?2,?3,?4,?5,?6,?7,?8)",  nativeQuery = true)
