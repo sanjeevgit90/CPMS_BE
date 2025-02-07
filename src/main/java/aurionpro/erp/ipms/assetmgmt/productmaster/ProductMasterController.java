@@ -156,9 +156,29 @@ public class ProductMasterController {
         return productRepo.getActiveProductListFromSubCategory(subcategory);
     } 
     
+//    @PreAuthorize("hasAuthority('Product_Master_DELETE')")
+//    @DeleteMapping("/{id}")
+//    public ProductMaster deleteProduct(@PathVariable(value="id") Long id){
+//
+//        Optional<ProductMaster> productList= productRepo.findById(id);
+//
+//        if(productList== null)
+//        {
+//            throw new EntityNotFoundException("The Specified Product deos not exists");
+//        }
+//
+//        if (productList.get().getIsDeleted()){
+//            throw new EntityNotFoundException("Product already deleted");
+//        }
+//        else{
+//        	  productRepo.deleteById(id); 
+//            return productRepo.save(productList.get());
+//        }
+//    }
+    
     @PreAuthorize("hasAuthority('Product_Master_DELETE')")
     @DeleteMapping("/{id}")
-    public ProductMaster deleteProduct(@PathVariable(value="id") Long id){
+    public void deleteProduct(@PathVariable(value="id") Long id){
 
         Optional<ProductMaster> productList= productRepo.findById(id);
 
@@ -167,13 +187,8 @@ public class ProductMasterController {
             throw new EntityNotFoundException("The Specified Product deos not exists");
         }
 
-        if (productList.get().getIsDeleted()){
-            throw new EntityNotFoundException("Product already deleted");
-        }
-        else{
-        	productList.get().setIsDeleted(true);
-            return productRepo.save(productList.get());
-        }
+        	  productRepo.deleteById(id); 
+
     }
     
 
