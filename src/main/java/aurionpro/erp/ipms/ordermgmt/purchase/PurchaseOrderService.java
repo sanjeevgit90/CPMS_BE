@@ -1397,7 +1397,7 @@ public class PurchaseOrderService {
 		//Authorized Signatory
 		p = new Phrase();
 		p.add(new Chunk("E. & O. E.", FONT_BODY));
-		p.add(new Chunk("\nFor " + po.getSuppName() + ",", FONT_TABLE_HEADER));
+		p.add(new Chunk("\nFor " + po.getInvoicetoname() + ",", FONT_TABLE_HEADER));
 		p.add(new Chunk("\nDate.:", FONT_BODY));
 		p.add(new Chunk("\n\n\n\n\nAuthorized Signatory", FONT_BODY));
 		cell = new PdfPCell(p);
