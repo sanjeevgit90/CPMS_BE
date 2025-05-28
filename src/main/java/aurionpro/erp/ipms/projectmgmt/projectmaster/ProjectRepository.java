@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import aurionpro.erp.ipms.jkdframework.common.SelectionList;
 
@@ -22,6 +23,11 @@ public interface ProjectRepository extends JpaRepository<Project,Long>{
 
     @Query(value="SELECT p.projectpin FROM projectmgmt.project p  where p.projectpin is not null order by p.createdDate desc limit 1", nativeQuery = true)
 	public List<String> getProjectPin();
+    
+    
+    @Query(value = "SELECT p.projectpin FROM projectmgmt.project p WHERE p.projectpin IS NOT NULL AND p.departmentname = :departmentName ORDER BY p.createddate DESC LIMIT 1", nativeQuery = true)
+    List<String> getProjectPinV2(@Param("departmentName") String departmentName);
+
 
 	@Query(value="select id as selectionid, projectname as selectionvalue from projectmgmt.getproject(?1)", nativeQuery = true)
 	public List<ProjectList> getProjectsListByProfileId(Long profileId);

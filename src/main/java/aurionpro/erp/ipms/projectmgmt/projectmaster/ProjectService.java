@@ -18,6 +18,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import aurionpro.erp.ipms.authorization.department.Department;
+import aurionpro.erp.ipms.authorization.department.DepartmentRepository;
 import aurionpro.erp.ipms.jkdframework.common.SelectionList;
 import aurionpro.erp.ipms.jkdframework.jkdexception.EntityValidationException;
 import aurionpro.erp.ipms.jkdframework.organization.OrgRepository;
@@ -30,6 +32,7 @@ import aurionpro.erp.ipms.utility.AppProperties;
 import aurionpro.erp.ipms.utility.MyPrincipal;
 import aurionpro.erp.ipms.utility.NotificationMailFormat;
 import aurionpro.erp.ipms.utility.ProjectUtil;
+
 
 @Service
 public class ProjectService {
@@ -57,6 +60,9 @@ public class ProjectService {
     
     @Autowired
 	TaskMasterService tmService;
+    
+    @Autowired
+    DepartmentRepository  departmentRepo;
     
     @Autowired
     NotificationMailFormat notificaton;
@@ -237,7 +243,8 @@ public class ProjectService {
 	       
 	       if (projTemp.get().getApprovalStatus().equalsIgnoreCase("APPROVED"))
 		     {
-		    	  String pin = generateProjectPin();
+//               	  String pin = generateProjectPin();
+	    	   String pin = generateProjectPinV2(projTemp.get().getDepartmentName());
 		    	  projTemp.get().setProjectPin(pin);
 		     }
 	      return projectRepo.save(projTemp.get());	      
@@ -252,18 +259,41 @@ public class ProjectService {
 			{
 				String tempPin= (String)pinList.get(0);
 				Integer pin1= 0;
-				 String [] arrOfStr = tempPin.split("GSG");
+				 String [] arrOfStr = tempPin.split("TIG");
 			       pin1= Integer.parseInt(arrOfStr[1]);
-			       pin = "GSG"+String.format("%04d",pin1 + 1);
+			       pin = "TIG"+String.format("%04d",pin1 + 1);
 			}
 			return pin;
 		}catch (NullPointerException e) {
 			return pin;
 		}
-		
-		
-		
+			
     }
+	
+	public String generateProjectPinV2(String departmentname) {
+		 String pin = null;
+		try {
+//			String departmentCode = departmentRepo.findDepartmentCodeByDepartmentName(departmentname);
+			List<Department> department = departmentRepo.findByDepartmentName(departmentname);
+		        String departmentCode = department.get(0).getDepartmentCode();
+			List<String> pinList = projectRepo.getProjectPinV2(departmentname);
+			 if (pinList != null && pinList.size() > 0) {
+		            String tempPin = pinList.get(0);
+		            Integer pin1 = 0;
+		            String[] arrOfStr = tempPin.split(departmentCode);
+		            pin1 = Integer.parseInt(arrOfStr[1]);
+		            pin = departmentCode + String.format("%04d", pin1 + 1);
+		        } else {
+		            pin = departmentCode + String.format("%04d", 1);
+		        }
+
+		        return pin;
+		    } catch (Exception e) {
+		        // Optionally log the error
+		        return pin; // Will be null if exception occurs
+		    }
+		}
+
 
 	public Project saveOpenBravoId(Long id, String proj) {
 		Optional<Project> projTemp= projectRepo.findById(id);
