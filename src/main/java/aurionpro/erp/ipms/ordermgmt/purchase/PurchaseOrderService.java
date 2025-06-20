@@ -1035,6 +1035,8 @@ public class PurchaseOrderService {
 		if (!StringUtils.isEmpty(po.getOtherReference())) {
 			p.add(new Chunk(po.getOtherReference(), FONT_BODY));
 		}
+		p.add(new Chunk("\n\nDepartment Name::\n", FONT_TABLE_HEADER));
+		p.add(new Chunk(po.getDepartmentName(), FONT_BODY));
 		cell = new PdfPCell(p);
 		cell.setVerticalAlignment(Element.ALIGN_TOP);
 		// cell.setHorizontalAlignment(Element.ALIGN_CENTER);
