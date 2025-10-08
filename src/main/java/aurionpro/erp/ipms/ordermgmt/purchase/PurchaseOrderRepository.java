@@ -19,7 +19,7 @@ public interface PurchaseOrderRepository extends JpaRepository<PurchaseOrderMast
     public List<SelectionList> selectionPoList(Long profileId);
 	
 	@Query(value="select p.entityid as selectionid, p.purchase_order_no as selectionvalue from ordermgmt.purchase_order_master p"
-			+ " where p.account_name in (select id from projectmgmt.getproject(?1)) and p.approval_status = 'APPROVED' order by p.purchase_order_no", nativeQuery = true)
+			+ " where p.account_name in (select id from projectmgmt.getproject(?1)) and p.approval_status = 'APPROVED & EMAIL SENT' order by p.purchase_order_no", nativeQuery = true)
     public List<SelectionList> selectionApprovedPoList(Long profileId);
 	
 	/* DML not supported
@@ -42,6 +42,6 @@ public interface PurchaseOrderRepository extends JpaRepository<PurchaseOrderMast
 	@Query(value="select p.attachment from ordermgmt.purchase_order_attachments p where p.purchaseorderid = ?1", nativeQuery = true)
     public List<String> getAttachmentList(long poId);
 	
-	@Query(value="select p.entityid as selectionid, p.purchase_order_no as selectionvalue from ordermgmt.purchase_order_master p where p.approval_status = 'APPROVED' and p.entityid in (select distinct(g.po_no) from ordermgmt.grn_master g) order by p.purchase_order_no", nativeQuery = true)
+	@Query(value="select p.entityid as selectionid, p.purchase_order_no as selectionvalue from ordermgmt.purchase_order_master p where p.approval_status = 'APPROVED & EMAIL SENT' and p.entityid in (select distinct(g.po_no) from ordermgmt.grn_master g) order by p.purchase_order_no", nativeQuery = true)
     public List<SelectionList> getAllPoListFromGrn();
 }
