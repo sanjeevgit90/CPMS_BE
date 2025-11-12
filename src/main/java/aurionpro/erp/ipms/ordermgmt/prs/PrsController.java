@@ -29,11 +29,18 @@ public class PrsController {
 	@Autowired
 	PrsService prsService;
 	
+	
 	@PreAuthorize("hasAnyAuthority('PRS_Master_ADD','MOB_PRS_Master_ADD')")   
 	@PostMapping("/addprs")
     public Prs savePrs(@Valid @RequestBody Prs prsRequest){
         return prsService.savePrs(prsRequest);
     }
+	
+	
+	@PutMapping("/updateverify/{prsId}")
+	public Prs updateVerify(@PathVariable(value = "prsId") long prsId) {
+	    return prsService.updateVerify(prsId);
+	}
 	
 	@PreAuthorize("hasAnyAuthority('PRS_Master_EDIT','MOB_PRS_Master_EDIT')")   
 	@PutMapping("/updateprs/{prsId}")

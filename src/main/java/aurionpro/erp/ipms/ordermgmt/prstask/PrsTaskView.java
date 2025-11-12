@@ -46,6 +46,14 @@ public class PrsTaskView {
 	@Column(name = "invoice_no")
 	private String invoiceNo;
 	
+	public Boolean getVerify() {
+		return verify;
+	}
+
+	public void setVerify(Boolean verify) {
+		this.verify = verify;
+	}
+
 	@Column(name = "invoice_date")
 	private Long invoiceDate;
 	
@@ -93,6 +101,9 @@ public class PrsTaskView {
 	
 	@Column(name = "approval")
 	private Boolean approval;
+	
+	@Column(name = "verify")
+	private Boolean verify;
 	
 	@Column(name = "supporting_documents")
 	private Boolean supportingDocuments;

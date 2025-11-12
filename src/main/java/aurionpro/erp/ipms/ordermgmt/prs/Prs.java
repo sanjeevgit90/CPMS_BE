@@ -79,6 +79,9 @@ public class Prs extends JKDEntityAuditWithId {
 	@Column(name = "quotation", length = 5)
 	private Boolean quotation;
 	
+	@Column(name = "verify", length = 5)
+	private Boolean verify;
+	
 	@Column(name = "po_copy", length = 5)
 	private Boolean poCopy;
 	
@@ -138,6 +141,14 @@ public class Prs extends JKDEntityAuditWithId {
 
 	public void setPrsDate(Long prsDate) {
 		this.prsDate = prsDate;
+	}
+
+	public Boolean getVerify() {
+		return verify;
+	}
+
+	public void setVerify(Boolean verify) {
+		this.verify = verify;
 	}
 
 	public Long getPurchaseOrderNo() {

@@ -46,6 +46,7 @@ public class PrsService {
             throw new RuntimeException("Prs entity already exists.");
         }
         prsRequest.setApprovalStatus("PENDING");
+        prsRequest.setVerify(false);
         prsRequest.setRequestedBy(MyPrincipal.getMyProfile().getFirstName() + " " + MyPrincipal.getMyProfile().getLastName());
         
         //Prs saveObj = prsRepo.save(prsRequest);
@@ -53,6 +54,19 @@ public class PrsService {
         return prsRepo.save(prsRequest);
 	}
 
+	public Prs updateVerify(long prsId) {
+	    // Check if record exists
+	    Prs existingPrs = prsRepo.findById(prsId)
+	            .orElseThrow(() -> new RuntimeException("PRS not found with ID: " + prsId));
+
+	    // Set verify flag to false
+	    existingPrs.setVerify(true);
+
+	    // Save and return updated record
+	    return prsRepo.save(existingPrs);
+	}
+
+	
 	public Prs updatePrs(long prsId, @Valid Prs prsRequest) {
 		// TODO Auto-generated method stub
 		if (prsId!=prsRequest.getEntityId())

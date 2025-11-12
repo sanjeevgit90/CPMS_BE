@@ -82,6 +82,9 @@ public class PrsView {
 	@Column(name = "approval")
 	private Boolean approval;
 	
+	@Column(name = "verify")
+	private Boolean verify;
+	
 	@Column(name = "supporting_documents")
 	private Boolean supportingDocuments;
 
@@ -230,6 +233,14 @@ public class PrsView {
 
 	public String getInvoiceNo() {
 		return invoiceNo;
+	}
+
+	public Boolean getVerify() {
+		return verify;
+	}
+
+	public void setVerify(Boolean verify) {
+		this.verify = verify;
 	}
 
 	public void setInvoiceNo(String invoiceNo) {
