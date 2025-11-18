@@ -201,7 +201,9 @@ public class OpenBravoPartyController {
 						address.setAddress1(gstDetailDTO.getAddressLine1());
 						address.setAddress2(gstDetailDTO.getAddressLine2());
 						address.setAddressType(gstDetailDTO.getAddressType());
-						address.setFullAddress(gstDetailDTO.getAddressLine1());
+						String fullAddress = gstDetailDTO.getAddressLine1() + "," + gstDetailDTO.getAddressLine2();
+						address.setFullAddress(fullAddress);
+//						address.setFullAddress(gstDetailDTO.getAddressLine1());
 						address.setCity(gstDetailDTO.getCity());
 						address.setContactNo(gstDetailDTO.getPhoneNumber().getNumber());
 						address.setCountry(gstDetailDTO.getCountry());
