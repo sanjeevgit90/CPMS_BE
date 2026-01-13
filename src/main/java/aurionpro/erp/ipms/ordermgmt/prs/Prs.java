@@ -126,6 +126,16 @@ public class Prs extends JKDEntityAuditWithId {
         name = "prs_attachment", schema = "ordermgmt",
         joinColumns = { @JoinColumn(name = "prsid") })
     private List<String> attachments;
+	
+	@Column(name = "book_entry_no", length = 100)
+	private String bookEntryNo;
+
+	@Column(name = "payment_done_date")
+	private Long paymentDoneDate;
+
+	@Column(name = "payment_book_entry_no", length = 100)
+	private String paymentBookEntryNo;
+
 
 	public String getPrsNo() {
 		return prsNo;
@@ -394,5 +404,28 @@ public class Prs extends JKDEntityAuditWithId {
 	public void setAttachments(List<String> attachments) {
 		this.attachments = attachments;
 	}
-	
+	public String getBookEntryNo() {
+	    return bookEntryNo;
+	}
+
+	public void setBookEntryNo(String bookEntryNo) {
+	    this.bookEntryNo = bookEntryNo;
+	}
+
+	public Long getPaymentDoneDate() {
+	    return paymentDoneDate;
+	}
+
+	public void setPaymentDoneDate(Long paymentDoneDate) {
+	    this.paymentDoneDate = paymentDoneDate;
+	}
+
+	public String getPaymentBookEntryNo() {
+	    return paymentBookEntryNo;
+	}
+
+	public void setPaymentBookEntryNo(String paymentBookEntryNo) {
+	    this.paymentBookEntryNo = paymentBookEntryNo;
+	}
+
 }

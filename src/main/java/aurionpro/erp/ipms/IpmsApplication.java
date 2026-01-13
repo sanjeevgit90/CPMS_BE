@@ -48,7 +48,7 @@ public class IpmsApplication extends SpringBootServletInitializer {
 		return new Docket(DocumentationType.SWAGGER_2)
 					.select()
 					.paths(PathSelectors.ant("/**")) //restrict based on path
-					.apis(RequestHandlerSelectors.basePackage("aurionpro.erp.ipms")) //restrict base on package
+					.apis(R equestHandlerSelectors.basePackage("aurionpro.erp.ipms")) //restrict base on package
 					.build()
 					.apiInfo(apiDetails())
 					.groupName("Multi")

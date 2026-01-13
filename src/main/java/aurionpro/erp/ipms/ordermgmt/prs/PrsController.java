@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import aurionpro.erp.ipms.jkdframework.common.SelectionList;
+import aurionpro.erp.ipms.ordermgmt.prs.dto.PrsPaymentUpdateDto;
 import aurionpro.erp.ipms.utility.fileupload.FileResponse;
 import aurionpro.erp.ipms.utility.fileupload.FileUploadService;
 
@@ -82,6 +84,15 @@ public class PrsController {
 		return prsService.getPrsReport(prsRequest, page, size);
 	}
 	
+	@PutMapping("/payment-update")
+	public ResponseEntity<String> updatePrsPayment(
+	        @RequestBody PrsPaymentUpdateDto dto) {
+
+		prsService.updatePaymentDetails(dto);
+
+	    return ResponseEntity.ok("Payment details updated successfully");
+	}
+
 	@Autowired
     FileUploadService uploadService;
 

@@ -15,10 +15,12 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import aurionpro.erp.ipms.jkdframework.common.SelectionList;
 import aurionpro.erp.ipms.jkdframework.jkdexception.EntityValidationException;
+import aurionpro.erp.ipms.ordermgmt.prs.dto.PrsPaymentUpdateDto;
 import aurionpro.erp.ipms.ordermgmt.purchase.PurchaseOrderMaster;
 import aurionpro.erp.ipms.ordermgmt.purchase.PurchaseOrderService;
 import aurionpro.erp.ipms.utility.MyPrincipal;
@@ -239,4 +241,61 @@ public class PrsService {
     		return new PageImpl<PrsView>(prsData);
     	}
 	}
+	
+	 @Transactional
+	    public void updatePaymentDetails(PrsPaymentUpdateDto dto) {
+
+	        if (dto.getEntityId() == null) {
+	            throw new IllegalArgumentException("entityId is required");
+	        }
+
+	        boolean hasBookEntryNo = dto.getBookEntryNo() != null;
+	        boolean hasPaymentDoneDate = dto.getPaymentDoneDate() != null;
+	        boolean hasPaymentBookEntryNo = dto.getPaymentBookEntryNo() != null;
+
+	        
+	        if (hasBookEntryNo && (hasPaymentDoneDate || hasPaymentBookEntryNo)) {
+	            throw new IllegalArgumentException(
+	                "bookEntryNo cannot be updated with payment details"
+	            );
+	        }
+
+	       
+	        if (!hasBookEntryNo && !hasPaymentDoneDate && !hasPaymentBookEntryNo) {
+	            throw new IllegalArgumentException("No update fields provided");
+	        }
+
+	        int updated = 0;
+
+	        if (hasBookEntryNo) {
+	            updated = prsRepo.updateBookEntryNo(
+	                    dto.getEntityId(),
+	                    dto.getBookEntryNo()
+	            );
+	        }
+
+	        if (hasPaymentDoneDate && hasPaymentBookEntryNo) {
+	            updated = prsRepo.updatePaymentDoneDateAndBookEntryNo(
+	                    dto.getEntityId(),
+	                    dto.getPaymentDoneDate(),
+	                    dto.getPaymentBookEntryNo()
+	            );
+	        }
+	        else if (hasPaymentDoneDate) {
+	            updated = prsRepo.updatePaymentDoneDate(
+	                    dto.getEntityId(),
+	                    dto.getPaymentDoneDate()
+	            );
+	        }
+	        else if (hasPaymentBookEntryNo) {
+	            updated = prsRepo.updatePaymentBookEntryNo(
+	                    dto.getEntityId(),
+	                    dto.getPaymentBookEntryNo()
+	            );
+	        }
+
+	        if (updated == 0) {
+	            throw new RuntimeException("No record updated for entityId: " + dto.getEntityId());
+	        }
+	    }
 }

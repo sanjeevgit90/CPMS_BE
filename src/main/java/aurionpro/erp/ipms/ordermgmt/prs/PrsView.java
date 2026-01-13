@@ -182,6 +182,16 @@ public class PrsView {
     
     @Transient
 	private Long toDate;
+    
+    @Column(name = "book_entry_no")
+    private String bookEntryNo;
+
+    @Column(name = "payment_done_date")
+    private Long paymentDoneDate;
+
+    @Column(name = "payment_book_entry_no")
+    private String paymentBookEntryNo;
+
 	
 	public List<String> getAttachments() {
 		return attachments;
@@ -607,4 +617,29 @@ public class PrsView {
 	public void setGrnNo(String grnNo) {
 		this.grnNo = grnNo;
 	}
+	
+	public String getBookEntryNo() {
+	    return bookEntryNo;
+	}
+
+	public void setBookEntryNo(String bookEntryNo) {
+	    this.bookEntryNo = bookEntryNo;
+	}
+
+	public Long getPaymentDoneDate() {
+	    return paymentDoneDate;
+	}
+
+	public void setPaymentDoneDate(Long paymentDoneDate) {
+	    this.paymentDoneDate = paymentDoneDate;
+	}
+
+	public String getPaymentBookEntryNo() {
+	    return paymentBookEntryNo;
+	}
+
+	public void setPaymentBookEntryNo(String paymentBookEntryNo) {
+	    this.paymentBookEntryNo = paymentBookEntryNo;
+	}
+
 }
